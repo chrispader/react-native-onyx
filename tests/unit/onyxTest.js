@@ -178,9 +178,13 @@ describe('Onyx', () => {
         });
 
         Onyx.merge(ONYX_KEYS.TEST_KEY, {test1: 'test1'});
-        Onyx.merge(ONYX_KEYS.TEST_KEY, {test2: 'test2'});
+
         return waitForPromisesToResolve()
             .then(() => {
+                Onyx.merge(ONYX_KEYS.TEST_KEY, {test2: 'test2'});
+
+                return waitForPromisesToResolve()
+            }).then(() => {
                 expect(testKeyValue).toStrictEqual({test1: 'test1', test2: 'test2'});
             });
     });
